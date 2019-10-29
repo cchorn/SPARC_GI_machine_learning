@@ -7,6 +7,9 @@ function [] = createPaddleAvgEGGobj(trialObj)
     %   INPUTS
     %   ===================================================================
     %   trialObj    :   MDF object for trial to be processed
+    %
+    %   Author: Ameya C. Nanivadekar
+    %   email: acnani@gmail.com
     
     summaryObj = mdf.load('subject',trialObj.subject,'mdf_type','summary');
     eggChan = summaryObj.EGG.label;

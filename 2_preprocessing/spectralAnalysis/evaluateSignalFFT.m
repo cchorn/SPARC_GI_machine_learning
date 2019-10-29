@@ -14,6 +14,9 @@ function [X_mags, fax_Hz, DP, PSD] = evaluateSignalFFT(signal, fs, flim)
     %   USAGE
     %   ===================================================================
     %   evaluateSignalFFT(wf, 2e3, baseline.F_lims)
+    %
+    %   Author: Ameya C. Nanivadekar
+    %   email: acnani@gmail.com
     
     N = length(signal);    
     X_mags = abs(fft(signal)); % [signal.*hann(N); zeros(10000-N,1)]

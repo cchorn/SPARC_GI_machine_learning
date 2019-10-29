@@ -13,6 +13,9 @@ function [] = createBipolarPaddleAvgEGGobj(trialObj)
     %   ===================================================================
     %   Paddle average objects should have been created prior to running
     %   this function
+    %
+    %   Author: Ameya C. Nanivadekar
+    %   email: acnani@gmail.com
     
     summaryObj = mdf.load('subject',trialObj.subject,'mdf_type','summary');
     paddleNum = summaryObj.EGG.paddleNum;

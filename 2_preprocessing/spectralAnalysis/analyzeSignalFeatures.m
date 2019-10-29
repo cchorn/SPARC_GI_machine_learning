@@ -48,7 +48,10 @@ function [wf_out, res_out] = analyzeSignalFeatures(mode, subject, trialList, sig
     %   analyzeSignalFeatures('debug','40-18',{'rec_awake','feeding','emetine_awake','water_awake'},'PA','CA')
     %   analyzeSignalFeatures('debug','37-18',{'rec_awake','feeding','emetine_awake','water_awake'},'PA','CA')
     %   analyzeSignalFeatures('debug','48-18',{'feeding','emetine_awake','water_awake'},'PA','CA')
-
+    %
+    %   Author: Ameya C. Nanivadekar
+    %   email: acnani@gmail.com
+    
     varargin = sanitizeVarargin(varargin);
     DEFINE_CONSTANTS
     freqBands_Hz = (6:0.3:15)/60;

@@ -8,7 +8,9 @@ function [] = run_createSnippets(subName)
     %   USAGE
     %   ===================================================================
     %   run_createSnippets('43-17')
-
+    %
+    %   Author: Ameya C. Nanivadekar
+    %   email: acnani@gmail.com
 
     % rest snippets
     trialObj = mdf.load('subject',subName,'mdf_type','trial','trialType','rec');

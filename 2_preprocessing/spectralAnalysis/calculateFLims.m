@@ -13,6 +13,9 @@ function [FLim_cpm] = calculateFLims(df, freqBands_hz)
     %   USAGE
     %   ===================================================================
     %   calculateFLims(9.1, 0.1:0.005:0.25)
+    %
+    %   Author: Ameya C. Nanivadekar
+    %   email: acnani@gmail.com
     
     freqBands_cpm = freqBands_hz*60;
     bradyLim = df + ([-3,-1]);

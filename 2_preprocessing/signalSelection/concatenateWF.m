@@ -13,6 +13,9 @@ function concatWF = concatenateWF(wfObjArray)
     %   ===================================================================
     %   The cell2mat and (:) indexing may have to be tweaked based on the 
     %   MATLAB version in use.
+    %
+    %   Author: Ameya C. Nanivadekar
+    %   email: acnani@gmail.com
     
     if isempty(wfObjArray)
         concatWF = 0;

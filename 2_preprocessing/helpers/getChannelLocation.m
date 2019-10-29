@@ -9,6 +9,9 @@ function [location] = getChannelLocation(subject, channelLabel)
     %   subject         :  (string) subject name
     %   channelLabel    :  (string) see list of channel Labels in
     %                      experiment_constants or summary objects in MDF
+    %
+    %   Author: Ameya C. Nanivadekar
+    %   email: acnani@gmail.com
     
     summaryObj = mdf.load('subject',subject,'mdf_type','summary');
 

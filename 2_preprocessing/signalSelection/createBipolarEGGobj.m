@@ -9,6 +9,9 @@ function [] = createBipolarEGGobj(trialObj,chanPairs)
     %   trialObj    :   MDF object for trial to be processed
     %   paddleMap   :   nx2 cell array where columns are EGG channels to
     %                   difference
+    %
+    %   Author: Ameya C. Nanivadekar
+    %   email: acnani@gmail.com
     
     numCombos = size(chanPairs,1);
     summaryObj = mdf.load('mdf_type','summary','subject',trialObj.subject);

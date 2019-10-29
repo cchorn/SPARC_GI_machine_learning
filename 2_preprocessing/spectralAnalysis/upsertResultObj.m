@@ -4,7 +4,9 @@ function [] = upsertResultObj(mdStruct, dataStruct)
     %   ===================================================================
     %   Inserts new or updates existing MDF result object
     %   See analyzeSignalFeatures.m for details on function inputs
-    
+    %
+    %   Author: Ameya C. Nanivadekar
+    %   email: acnani@gmail.com
     
     queryStruct = mdStruct;
     queryStruct.mdf_type = 'result';

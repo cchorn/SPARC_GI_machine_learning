@@ -6,7 +6,9 @@ function [] = plotPSDbars(fftResult)
     %   gastric ranges as a bar graph for the given input struct. 
     %   See analyzeSignalFeatures.m for details on constructing input struct.
     %
-
+    %   Author: Ameya C. Nanivadekar
+    %   email: acnani@gmail.com
+    
     normoLim = fftResult.baseline.F_lims.normoLim;
 
     brady_base = fftResult.baseline.PSD.brady;

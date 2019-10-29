@@ -15,7 +15,9 @@ function [val_feature, windowStarts_min, sig_window] = MovingWinFeats(wf, fs, fe
     %   windowSize_min  :   (int) window size in minutes
     %   overlap_min     :   (int) overlap duration in minutes
     %   freqBins        :   (1xn) vector of frequencies for spectrogram
-    
+    %
+    %   Author: Ameya C. Nanivadekar
+    %   email: acnani@gmail.com
     
     DEFINE_CONSTANTS
     windowSize_min = 1;

@@ -17,6 +17,9 @@ function [meanDF_cpm] = getWindowAverageDF(wfspectro, freqBand, winstart, winran
     %   USAGE
     %   ===================================================================
     %   getWindowAverageDF(wf_spectroPower, freqBands_Hz, 0:20, [5,15])
+    %
+    %   Author: Ameya C. Nanivadekar
+    %   email: acnani@gmail.com
     
     idx = winstart >= winrange(1) & winstart < winrange(2);
     temp_wf_spectroPower = wfspectro(:,idx);

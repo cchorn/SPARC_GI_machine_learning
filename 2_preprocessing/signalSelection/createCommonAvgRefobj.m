@@ -7,6 +7,9 @@ function [] = createCommonAvgRefobj(trialObj)
     %   INPUTS
     %   ===================================================================
     %   trialObj    :   MDF object for trial to be processed
+    %
+    %   Author: Ameya C. Nanivadekar
+    %   email: acnani@gmail.com
     
     if ismember(trialObj.trialType, {'rec', 'emetine','euthasol', 'rec_postop','rec_awake', 'feeding', 'post_feeding', 'pre_feeding', 'emetine_awake', 'feeding_stim','water_awake'})
         for iSeg = 1:trialObj.getLen('segments')

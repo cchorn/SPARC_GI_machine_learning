@@ -23,6 +23,9 @@ function [wf] = evaluateSnippetFeat(subject, trialnum, signalType, snippetState,
     %   ===================================================================
     %   possible signal sources are se, se-CA, se-PA, bp, bp-CA, bp-PA, PA,
     %   bPA, emg
+    %
+    %   Author: Ameya C. Nanivadekar
+    %   email: acnani@gmail.com
     
     varargin = sanitizeVarargin(varargin);
     DEFINE_CONSTANTS

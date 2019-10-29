@@ -11,6 +11,8 @@ function [] = plotWaterfall(spectroPower, winStart, freqBands_Hz)
     %   freqBands_Hz    :  (1xp) vector of frequency bins in Hz
     %   winStart        :  (1xn) array of spectrogram window start times
     %
+    %   Author: Ameya C. Nanivadekar
+    %   email: acnani@gmail.com
     
     spectroPower(1,:) = 0;
     spectroPower(end,:) = 0;

@@ -5,7 +5,10 @@ function [] = plotSpectralResults(result_md, result, varargin)
     %   Generates summary report including raw signal, PSD bar plots and
     %   waterfall plots for each input signal. 
     %   See analyzeSignalFeatures.m for details on inputs
-
+    %
+    %   Author: Ameya C. Nanivadekar
+    %   email: acnani@gmail.com
+    
     varargin = sanitizeVarargin(varargin);
     DEFINE_CONSTANTS
     save_figure = false;

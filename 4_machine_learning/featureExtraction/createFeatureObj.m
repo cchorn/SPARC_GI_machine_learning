@@ -8,6 +8,9 @@ function [featObj] = createFeatureObj(metadataStruct, snipIdx)
     %   ===================================================================
     %   metadataStruct  :  (struct) mdf query struct
     %   snipIdx         :  (int) index of signal window
+    %
+    %   Author: Ameya C. Nanivadekar
+    %   email: acnani@gmail.com
     
     featObj = mdfObj;
     featObj.type = 'feature';

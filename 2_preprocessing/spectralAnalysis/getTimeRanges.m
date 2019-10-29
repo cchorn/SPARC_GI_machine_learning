@@ -9,6 +9,8 @@ function [baselineT_min, targetT_min] = getTimeRanges(trialObj)
     %   ===================================================================
     %   trialObj   :  (mdfObj) trial object in MDF
     %
+    %   Author: Ameya C. Nanivadekar
+    %   email: acnani@gmail.com
 
     if strcmp(trialObj.trialType,'balloon')
         baselineT_min = [0 trialObj.md.params.preInfusion];

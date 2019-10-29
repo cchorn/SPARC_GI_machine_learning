@@ -9,7 +9,10 @@ function [snipObj] = createSnippetObj(metadataStruct, wf, snipIdx)
     %   metadataStruct  :  (struct) mdf query struct
     %   wf              :  (1xn) waveform snippet
     %   snipIdx         :  (int) index of signal window
-    
+    %
+    %   Author: Ameya C. Nanivadekar
+    %   email: acnani@gmail.com
+
     snipObj = mdfObj;
     snipObj.type = 'snip';
     snipObj.md = metadataStruct;

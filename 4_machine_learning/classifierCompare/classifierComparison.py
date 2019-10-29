@@ -1,3 +1,8 @@
+# script to run grid search for optimal hyperparameters, train-test SVM and kNN classifiers for each feature set per subject and log to local mongo DB
+
+# Author: Ameya C. Nanivadekar
+# email: acnani@gmail.com 
+
 import pymongo
 import itertools
 import numpy as np
@@ -21,9 +26,9 @@ collection = 'acute'
 
 client = pymongo.MongoClient(mongohost, mongoport)
 db = client.ferret
-collection2 = db.MLresults_resub
+collection2 = db.MLresults_wideGamma
 
-names = ["Nearest Neighbors", "Linear SVM","Naive Bayes"]
+names = ["Nearest Neighbors", "Linear SVM"]
 
 def getFeats(subject, signalType, states = [1,2,3,4,5,6,7], feats = [1,2,3,4,5,6,7,8,9], location = ['S1','S2','S3','S4','pD','dD']):
     result = db.command({
@@ -91,9 +96,13 @@ featureCombos = []
 for iFeat in allFeats:
     featureCombos.extend(list(itertools.combinations(allFeats, iFeat)))
 
-allSubs = ['14-18','16-18','13-18','15-18']
-signalType = ['PA','PA','PA','bPA',]
-stateCombos = [[4,5], [7,4,5], [7,4,5], [7,4,5]]
+allSubs = ['14-18']
+signalType = ['PA']
+stateCombos = [[4,5]]
+
+# allSubs = ['16-18','13-18','15-18']
+# signalType = ['PA','PA','bPA',]
+# stateCombos = [[7,4,5], [7,4,5], [7,4,5]]
 featureExtract = ['all']
 
 conditions = []
@@ -103,13 +112,14 @@ for iSubs, iStates, sigType in zip(allSubs, stateCombos, signalType):
         for reducedFeat in featureExtract:
             for iFeat in featureCombos:
                 for clfName in names:
-                    conditions.append([iSubs, iStates, iLoc, reducedFeat, clfName, sigType, iFeat])
+                    conditions.append([iSubs, iStates, iLoc, 'all', clfName, sigType, iFeat])
 
 
 totalIters = len(conditions)
-ctr = 0
 for iNum in conditions:
-    ctr += 1
+
+    ctr = conditions.index(iNum)
+    # print str(datetime.datetime.now()) + ' ' + str(ctr) + ' of ' + str(totalIters)
 
     iSubs = iNum[0]
     iStates = iNum[1]
@@ -137,46 +147,49 @@ for iNum in conditions:
         rkf = RepeatedKFold(n_splits=5, n_repeats=100)
         accuracyList = []
         accuracyList2 = []
+        bestParamList = []
         confMat = np.zeros([len(iStates),len(iStates)])
-        
+        # confMat2 = []
         for train_index, test_index in rkf.split(X):
+            # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
             X_train, X_test = X[train_index], X[test_index]
             y_train, y_test = y[train_index], y[test_index]
             y_train_jumbled, y_test_jumbled = y_jumbled[train_index], y_jumbled[test_index]
+            bestParams = {}
 
             if name == 'Nearest Neighbors':
-                clfBest = KNeighborsClassifier(n_neighbors=5)
+                clfBest = KNeighborsClassifier()
                 # clfBest.fit(X_train, y_train)
                 tuned_parameters = {'n_neighbors': range(1, 10)}
-                grid = GridSearchCV(clf, tuned_parameters, cv=5, scoring='accuracy', n_jobs=-1)
+                grid = GridSearchCV(clfBest, tuned_parameters, cv=5, scoring='accuracy', n_jobs=-1) #
                 tmp = grid.fit(X_train, y_train)
                 clfBest = tmp.best_estimator_
+                bestParams = tmp.best_params_
 
             elif name == "Linear SVM":
                 clfBest = SVC()
                 # clfBest.fit(X_train, y_train)
-                tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-3, 1e-4],
-                                     'C': [1, 10, 100, 1000]},
+                tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-3, 1e-4],'C': [1, 10, 100, 1000]},
                                     {'kernel': ['linear'], 'C': [1, 10, 100, 1000]}]
-                grid = GridSearchCV(clf, tuned_parameters, cv=5, scoring='accuracy', n_jobs=-1)
+                grid = GridSearchCV(clfBest, tuned_parameters, cv=5, scoring='accuracy', n_jobs=-1) #
                 tmp = grid.fit(X_train, y_train)
                 clfBest = tmp.best_estimator_
-
-            elif name == "Naive Bayes":
-                clfBest = GaussianNB()
-                clfBest.fit(X_train, y_train)
+                bestParams = tmp.best_params_
 
             ypred = clfBest.predict(X_test)
             accuracyList.append(clfBest.score(X_test, y_test))
+            bestParamList.append(bestParams)
             confMat += confusion_matrix(y_test, ypred, labels=iStates)
 
             # clfBest_copy2 = clfBest
             # clfBest_copy.fit(X_train, y_train_jumbled)
             # ypred2 = clfBest_copy.predict(X_test)
             # accuracyList2.append(clfBest_copy.score(X_test, y_test_jumbled))
-            # confMat2.append(classification_report(y_test_jumbled, ypred2, output_dict=True, target_names=[str(int(i)) for i in list(np.unique( [list(y_test_jumbled), list(ypred2)]))]))
+            # # confMat2.append(classification_report(y_test_jumbled, ypred2, output_dict=True, target_names=[str(int(i)) for i in list(np.unique( [list(y_test_jumbled), list(ypred2)]))]))
+
 
         MLresult = {}
+        MLresult['attempt'] = 'MLresults_wideGamma'
         MLresult['index'] = ctr
         MLresult['subject'] = iSubs
         MLresult['states'] = iStates
@@ -188,12 +201,22 @@ for iNum in conditions:
         MLresult['accuracyList'] = accuracyList
         MLresult['confMat'] = list(np.ndarray.flatten(confMat))
 
+        if name == "Linear SVM":
+            for iVal in bestParamList:
+                MLresult.setdefault('C', []).append(iVal['C'])
+                MLresult.setdefault('kernel',[]).append(iVal['kernel'])
+                if iVal['kernel'] == 'rbf':
+                    MLresult.setdefault('gamma',[]).append(iVal['gamma'])
+
+        else:
+            for iVal in bestParamList:
+                MLresult.setdefault('n_neighbors',[]).append(iVal['n_neighbors'])
+
         # MLresult['accuracyList_jumbled'] = accuracyList2
         # MLresult['report_jumbled'] = confMat2
-        MLresult['attempt'] = 'resub'
 
         collection2.insert_one(MLresult)
-        print ctr, featList ,iLoc,iFeats,name,sigType,np.mean(accuracyList)
+        print ctr, featList ,iSubs, iLoc,name,np.mean(accuracyList)
 
 
     else:

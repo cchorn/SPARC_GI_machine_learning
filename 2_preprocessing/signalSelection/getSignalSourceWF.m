@@ -26,6 +26,9 @@ function [conditionedWF, fs] = getSignalSourceWF(subject, trialnum, signalType, 
     %   se/bp/CA/PA/bPA/emg signal sources correspond to single ended,
     %   bipolar, Common Average, Paddle Average, bipolar Paddle Average and
     %   intramuscular EMG
+    %
+    %   Author: Ameya C. Nanivadekar
+    %   email: acnani@gmail.com
 
     varargin = sanitizeVarargin(varargin);
     DEFINE_CONSTANTS

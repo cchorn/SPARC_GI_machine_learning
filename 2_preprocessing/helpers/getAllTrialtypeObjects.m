@@ -9,6 +9,9 @@ function [objArray] = getAllTrialtypeObjects(subject, trialType)
     %   subject         :  (string) subject name
     %   trialType       :  (string) see list of trial types in
     %                      experiment_constants or summary objects in MDF
+    %
+    %   Author: Ameya C. Nanivadekar
+    %   email: acnani@gmail.com
     
     objArray = mdf.load('subject',subject,'mdf_type','trial','trialType',trialType);
 end
