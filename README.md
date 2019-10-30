@@ -1,8 +1,9 @@
 ##### *This repository is associated with the following publication:*
 
-Machine learning prediction of emesis and gastrointestinal state in ferrets
-Ameya C. Nanivadekar, Derek M. Miller, Stephanie Fulton, Liane Wong, John Ogren, Girish Chitnis, Bryan McLaughlin, Shuyan Zhai, Lee E. Fisher, Bill J. Yates, Charles C. Horn
-PLoS ONE 607242; doi: https://doi.org/10.1371/journal.pone.0223279
+Machine learning prediction of emesis and gastrointestinal state in ferrets  
+Ameya C. Nanivadekar, Derek M. Miller, Stephanie Fulton, Liane Wong, John Ogren, Girish Chitnis, Bryan McLaughlin, Shuyan Zhai, Lee E. Fisher, Bill J. Yates, Charles C. Horn  
+PLoS ONE; doi: https://doi.org/10.1371/journal.pone.0223279
+
 ------------
 
 #### Sub-folders:
